@@ -1,0 +1,29 @@
+name: GitHub Actions Practice
+run-name: ${{ github.actor }} practice GitHub Action 😎
+on:
+  push:
+    branches: main
+jobs:
+  test:
+    name: github action test ~
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [15.x]
+    steps:
+      - name: echo test word
+        run: echo "TEST repository is ${{ github.repository }}"
+
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm install
+        run: npm i
+
+      - name: run test
+        run: npm test
